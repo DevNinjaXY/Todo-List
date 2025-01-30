@@ -77,14 +77,15 @@
                            class="w-full p-2 border rounded mb-2" 
                            placeholder="Enter task description">
                     <div class="flex items-center">
-                        <input type="number" 
-                               class="w-24 p-2 border rounded" 
-                               min="0" 
-                               max="100" 
-                               value="0"
-                               onchange="updateProgress(this)"
-                               placeholder="Progress %">
-                        <span class="ml-2">%</span>
+                        <select class="w-24 p-2 border rounded"
+                                onchange="updateProgress(this)">
+                            <option value="0">0%</option>
+                            <option value="20">20%</option>
+                            <option value="40">40%</option>
+                            <option value="60">60%</option>
+                            <option value="80">80%</option>
+                            <option value="100">100%</option>
+                        </select>
                     </div>
                 </div>
             `;
@@ -99,7 +100,7 @@
             const taskIndex = Array.from(taskDiv.parentNode.children).indexOf(taskDiv);
             const newProgress = parseInt(input.value) || 0;
             
-            tasks[taskIndex].progress = newProgress;
+            tasks[taskIndex] = { progress: newProgress };
             
             if (newProgress === 100) {
                 moveTaskToDone(taskDiv, taskIndex);
@@ -170,6 +171,7 @@
             document.getElementById('emojiContainer').classList.add('hidden');
             document.getElementById('tasksContainer').classList.add('hidden');
             tasks = [];
+            updateEmoji(); // Reset emoji and progress display
         }
 
         function updateCarousel() {
@@ -214,12 +216,17 @@
         }
 
         function updateEmoji() {
-            if (tasks.length === 0) return;
-            
-            const totalProgress = tasks.reduce((sum, task) => sum + task.progress, 0) / tasks.length;
             const emojiFace = document.getElementById('emojiFace');
             const progressText = document.getElementById('progressText');
 
+            if (tasks.length === 0) {
+                progressText.textContent = 'Overall Progress: 0%';
+                emojiFace.textContent = '😢';
+                return;
+            }
+            
+            const totalProgress = tasks.reduce((sum, task) => sum + task.progress, 0) / tasks.length;
+            
             if (totalProgress < 33) {
                 emojiFace.textContent = '😢';
             } else if (totalProgress < 66) {
