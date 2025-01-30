@@ -14,9 +14,19 @@
 </head>
 <body class="bg-gradient-to-r from-purple-500 to-pink-500 min-h-screen p-8">
     <div class="max-w-2xl mx-auto">
+        <!-- Add logout button -->
+        <div class="flex justify-end mb-4">
+            <button onclick="logout()" 
+                    class="bg-white text-purple-600 px-4 py-2 rounded-lg hover:bg-gray-100">
+                Logout
+            </button>
+        </div>
+
         <!-- Title with lightning emoji -->
-        <h1 class="text-center fancy-text text-4xl mb-8 text-white">
-            ⚡️ Reinvent Your Revolution ⚡️
+        <h1 class="text-center fancy-text mb-8 text-white flex items-center justify-center gap-2 text-2xl sm:text-3xl md:text-4xl">
+            <span>⚡️</span>
+            <span>Reinvent Your Revolution</span>
+            <span>⚡️</span>
         </h1>
 
         <!-- Goal input section -->
@@ -50,6 +60,23 @@
     </div>
 
     <script>
+        // Add these functions at the beginning of your script section
+        function checkAuth() {
+            const currentUser = localStorage.getItem('currentUser');
+            if (!currentUser) {
+                window.location.href = 'signup.html';
+            }
+            return currentUser;
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'signup.html';
+        }
+
+        // Add this line at the beginning of your script section
+        const currentUser = checkAuth();
+
         let tasks = [];
         let completedGoals = [];
         const MAX_INITIAL_TASKS = 2;
@@ -58,6 +85,14 @@
         function setGoal() {
             const goal = document.getElementById('revolutionGoal').value;
             if (goal.trim() === '') return;
+            
+            // Update user's vision
+            let users = JSON.parse(localStorage.getItem('users') || '[]');
+            const userIndex = users.findIndex(u => u.username === currentUser);
+            if (userIndex !== -1) {
+                users[userIndex].vision = goal;
+                localStorage.setItem('users', JSON.stringify(users));
+            }
             
             document.getElementById('emojiContainer').classList.remove('hidden');
             document.getElementById('tasksContainer').classList.remove('hidden');

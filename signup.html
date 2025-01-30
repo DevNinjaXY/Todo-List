@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join the Revolution</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <style>
+        .fancy-text {
+            font-family: 'Permanent Marker', cursive;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-purple-500 to-pink-500 min-h-screen p-8">
+    <div class="max-w-md mx-auto">
+        <h1 class="text-center fancy-text mb-8 text-white flex items-center justify-center gap-2 text-2xl sm:text-3xl md:text-4xl">
+            <span>⚡️</span>
+            <span>Join the Revolution</span>
+            <span>⚡️</span>
+        </h1>
+
+        <div class="bg-white rounded-lg p-8 shadow-lg">
+            <form id="signupForm" class="space-y-6">
+                <div>
+                    <label class="block text-gray-700 mb-2" for="username">Username</label>
+                    <input type="text" id="username" required
+                           class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 mb-2" for="password">Password</label>
+                    <input type="password" id="password" required
+                           class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 mb-2" for="vision">Your Vision</label>
+                    <textarea id="vision" required
+                              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                              placeholder="What's your revolutionary vision?"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 mb-2" for="targetDate">Target Date</label>
+                    <input type="date" id="targetDate" required
+                           class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
+                </div>
+
+                <button type="submit" 
+                        class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition duration-300">
+                    Start Your Revolution
+                </button>
+
+                <div class="text-center">
+                    <a href="login.html" class="text-purple-600 hover:text-purple-800">
+                        Already have an account? Login here
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const vision = document.getElementById('vision').value;
+            const targetDate = document.getElementById('targetDate').value;
+
+            // Hash the password
+            const hashedPassword = CryptoJS.SHA256(password).toString();
+
+            // Create user object
+            const user = {
+                username: username,
+                password: hashedPassword,
+                vision: vision,
+                targetDate: targetDate,
+                tasks: []
+            };
+
+            // Get existing users or initialize empty array
+            let users = JSON.parse(localStorage.getItem('users') || '[]');
+            
+            // Check if username already exists
+            if (users.some(u => u.username === username)) {
+                alert('Username already exists!');
+                return;
+            }
+
+            // Add new user
+            users.push(user);
+            localStorage.setItem('users', JSON.stringify(users));
+
+            // Set current user
+            localStorage.setItem('currentUser', username);
+
+            // Redirect to main page
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html> 
