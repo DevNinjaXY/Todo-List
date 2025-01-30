@@ -65,7 +65,7 @@
 
         <!-- Emoji face -->
         <div id="emojiContainer" class="text-center text-8xl mb-8 hidden">
-            <div id="emojiFace">😢</div>
+            <div id="emojiFace">🎯</div>
             <div id="progressText" class="text-white text-xl mt-4"></div>
         </div>
 
@@ -473,26 +473,51 @@ When you feel ready for your next challenge, you can set a new goal. Until then,
             const emojiFace = document.getElementById('emojiFace');
             const progressText = document.getElementById('progressText');
 
-            if (tasks.length === 0) {
-                progressText.textContent = 'Overall Progress: 0%';
-                emojiFace.textContent = '😢';
-                return;
-            }
-            
-            const totalProgress = tasks.reduce((sum, task) => sum + task.progress, 0) / tasks.length;
-            const roundedProgress = Math.round(totalProgress);
-            
-            if (roundedProgress < 33) {
-                emojiFace.textContent = '😢';
-            } else if (roundedProgress < 66) {
-                emojiFace.textContent = '😐';
-            } else if (roundedProgress < 100) {
-                emojiFace.textContent = '🙂';
-            } else {
-                emojiFace.textContent = '😄';
-            }
+            if (goalType === 'habits') {
+                if (habits.length === 0) {
+                    progressText.textContent = 'Plant your habits to watch them grow';
+                    emojiFace.textContent = '🌱';
+                    return;
+                }
+                
+                const totalProgress = habits.reduce((sum, habit) => sum + (habit.daysCompleted || 0), 0) / (habits.length * 30) * 100;
+                const roundedProgress = Math.round(totalProgress);
+                
+                if (roundedProgress < 25) {
+                    emojiFace.textContent = '🌱';
+                } else if (roundedProgress < 50) {
+                    emojiFace.textContent = '🌿';
+                } else if (roundedProgress < 75) {
+                    emojiFace.textContent = '🌸';
+                } else if (roundedProgress < 100) {
+                    emojiFace.textContent = '🌺';
+                } else {
+                    emojiFace.textContent = '🌳';
+                }
 
-            progressText.textContent = `Overall Progress: ${roundedProgress}%`;
+                progressText.textContent = `Habit Growth: ${roundedProgress}%`;
+            } else {
+                if (tasks.length === 0) {
+                    progressText.textContent = 'Overall Progress: 0%';
+                    emojiFace.textContent = '🎯';
+                    return;
+                }
+                
+                const totalProgress = tasks.reduce((sum, task) => sum + task.progress, 0) / tasks.length;
+                const roundedProgress = Math.round(totalProgress);
+                
+                if (roundedProgress < 33) {
+                    emojiFace.textContent = '🎯';
+                } else if (roundedProgress < 66) {
+                    emojiFace.textContent = '🏅';
+                } else if (roundedProgress < 100) {
+                    emojiFace.textContent = '🏆';
+                } else {
+                    emojiFace.textContent = '👑';
+                }
+
+                progressText.textContent = `Overall Progress: ${roundedProgress}%`;
+            }
         }
 
         function addHabit() {

@@ -62,10 +62,10 @@
             // Get users from localStorage
             const users = JSON.parse(localStorage.getItem('users') || '[]');
             
-            // Find user
-            const user = users.find(u => u.username === username);
+            // Find user and verify password
+            const user = users.find(u => u.username === username && u.password === hashedPassword);
             
-            if (!user || user.password !== hashedPassword) {
+            if (!user) {
                 alert('Invalid username or password');
                 return;
             }
