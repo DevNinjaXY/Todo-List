@@ -86,14 +86,16 @@
             const goal = document.getElementById('revolutionGoal').value;
             if (goal.trim() === '') return;
             
-            // Update user's vision
+            // Get users and update current user's data
             let users = JSON.parse(localStorage.getItem('users') || '[]');
             const userIndex = users.findIndex(u => u.username === currentUser);
             if (userIndex !== -1) {
-                users[userIndex].vision = goal;
+                users[userIndex].currentGoal = goal;
+                users[userIndex].tasks = [];  // Reset tasks for new goal
                 localStorage.setItem('users', JSON.stringify(users));
             }
             
+            tasks = [];  // Reset local tasks array
             document.getElementById('emojiContainer').classList.remove('hidden');
             document.getElementById('tasksContainer').classList.remove('hidden');
             document.getElementById('revolutionGoal').disabled = true;
@@ -110,7 +112,8 @@
                 <div class="task mb-4 p-4 border rounded-lg">
                     <input type="text" 
                            class="w-full p-2 border rounded mb-2" 
-                           placeholder="Enter task description">
+                           placeholder="Enter task description"
+                           onchange="saveTaskDescription(this)">
                     <div class="flex items-center">
                         <select class="w-24 p-2 border rounded"
                                 onchange="updateProgress(this)">
@@ -126,8 +129,16 @@
             `;
             
             document.getElementById('tasksList').insertAdjacentHTML('beforeend', taskHtml);
-            tasks.push({ progress: 0 });
+            tasks.push({ description: '', progress: 0 });
+            saveTasksToStorage();
             updateAddTaskButton();
+        }
+
+        function saveTaskDescription(input) {
+            const taskDiv = input.closest('.task');
+            const taskIndex = Array.from(taskDiv.parentNode.children).indexOf(taskDiv);
+            tasks[taskIndex].description = input.value;
+            saveTasksToStorage();
         }
 
         function updateProgress(input) {
@@ -135,7 +146,8 @@
             const taskIndex = Array.from(taskDiv.parentNode.children).indexOf(taskDiv);
             const newProgress = parseInt(input.value) || 0;
             
-            tasks[taskIndex] = { progress: newProgress };
+            tasks[taskIndex].progress = newProgress;
+            saveTasksToStorage();
             
             if (newProgress === 100) {
                 moveTaskToDone(taskDiv, taskIndex);
@@ -144,6 +156,59 @@
             
             updateEmoji();
             updateAddTaskButton();
+        }
+
+        function saveTasksToStorage() {
+            let users = JSON.parse(localStorage.getItem('users') || '[]');
+            const userIndex = users.findIndex(u => u.username === currentUser);
+            if (userIndex !== -1) {
+                users[userIndex].tasks = tasks;
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+        }
+
+        function loadUserData() {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.username === currentUser);
+            
+            if (user && user.currentGoal) {
+                // Load goal
+                document.getElementById('revolutionGoal').value = user.currentGoal;
+                document.getElementById('revolutionGoal').disabled = true;
+                document.getElementById('emojiContainer').classList.remove('hidden');
+                document.getElementById('tasksContainer').classList.remove('hidden');
+                
+                // Load tasks
+                tasks = user.tasks || [];
+                const tasksList = document.getElementById('tasksList');
+                tasksList.innerHTML = ''; // Clear existing tasks
+                
+                tasks.forEach(task => {
+                    const taskHtml = `
+                        <div class="task mb-4 p-4 border rounded-lg">
+                            <input type="text" 
+                                   class="w-full p-2 border rounded mb-2" 
+                                   value="${task.description}"
+                                   onchange="saveTaskDescription(this)">
+                            <div class="flex items-center">
+                                <select class="w-24 p-2 border rounded"
+                                        onchange="updateProgress(this)">
+                                    <option value="0" ${task.progress === 0 ? 'selected' : ''}>0%</option>
+                                    <option value="20" ${task.progress === 20 ? 'selected' : ''}>20%</option>
+                                    <option value="40" ${task.progress === 40 ? 'selected' : ''}>40%</option>
+                                    <option value="60" ${task.progress === 60 ? 'selected' : ''}>60%</option>
+                                    <option value="80" ${task.progress === 80 ? 'selected' : ''}>80%</option>
+                                    <option value="100" ${task.progress === 100 ? 'selected' : ''}>100%</option>
+                                </select>
+                            </div>
+                        </div>
+                    `;
+                    tasksList.insertAdjacentHTML('beforeend', taskHtml);
+                });
+                
+                updateEmoji();
+                updateAddTaskButton();
+            }
         }
 
         function moveTaskToDone(taskDiv, taskIndex) {
@@ -274,6 +339,9 @@
 
             progressText.textContent = `Overall Progress: ${Math.round(totalProgress)}%`;
         }
+
+        // Call loadUserData after checking auth
+        loadUserData();
     </script>
 </body>
 </html> 
