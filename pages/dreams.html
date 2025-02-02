@@ -16,35 +16,45 @@
             </button>
         </nav>
 
-        <div class="bg-white rounded-lg p-6 shadow-lg mb-8">
-            <h1 class="text-3xl font-bold text-purple-600 mb-6">Re-awaken Your Dreams</h1>
-            
-            <div class="dream-input-section mb-8">
-                <div class="flex gap-4">
-                    <input type="text" id="dreamInput" placeholder="Enter your dream"
-                           class="flex-1 p-2 border border-purple-300 rounded focus:outline-none focus:border-purple-500">
-                    <button onclick="dreamManager.addDream()" 
-                            class="bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700">
-                        Add Dream
-                    </button>
+        <div class="space-y-8">
+            <!-- Dream Input Section -->
+            <div class="bg-white rounded-lg p-6 shadow-lg">
+                <h1 class="text-3xl font-bold text-purple-600 mb-6">Re-awaken Your Dreams</h1>
+                
+                <div class="dream-input-section">
+                    <div class="flex gap-4">
+                        <input type="text" id="dreamInput" placeholder="Describe your dream"
+                               class="flex-1 p-2 border border-purple-300 rounded focus:outline-none focus:border-purple-500">
+                        <button onclick="dreamManager.addDream()" 
+                                class="bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700">
+                            Embrace Your Dream
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <div class="dreams-container">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="dream-column bg-purple-50 p-4 rounded">
-                        <h2 class="text-xl font-bold text-purple-600 mb-4">Dreaming</h2>
-                        <div id="dreamingList" class="space-y-4"></div>
-                    </div>
-                    <div class="dream-column bg-purple-50 p-4 rounded">
-                        <h2 class="text-xl font-bold text-purple-600 mb-4">Planning</h2>
-                        <div id="planningList" class="space-y-4"></div>
-                    </div>
-                    <div class="dream-column bg-purple-50 p-4 rounded">
-                        <h2 class="text-xl font-bold text-purple-600 mb-4">Achieved</h2>
-                        <div id="achievedList" class="space-y-4"></div>
+            <!-- Active Dreams Section -->
+            <div class="bg-white rounded-lg p-6 shadow-lg">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-purple-600">Dreams In The Making</h2>
+                    <div class="text-sm text-gray-500">
+                        Manage and track your dreams here
                     </div>
                 </div>
+                
+                <div id="activeDreamsList" class="space-y-4"></div>
+            </div>
+
+            <!-- Achieved Dreams Section -->
+            <div class="bg-white rounded-lg p-6 shadow-lg">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-green-600">Living Dreams</h2>
+                    <div class="text-sm text-gray-500">
+                        Celebrate your accomplishments
+                    </div>
+                </div>
+                
+                <div id="achievedDreamsList" class="space-y-4"></div>
             </div>
         </div>
     </div>
