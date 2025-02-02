@@ -6,6 +6,29 @@
     <title>Personal Revolution Planner</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .feedback-box {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            max-width: 300px;
+            background: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 0.875rem;
+            line-height: 1.4;
+            z-index: 50;
+            border-left: 4px solid #9333ea;
+        }
+        .feedback-box a {
+            color: #9333ea;
+            text-decoration: underline;
+        }
+        .feedback-box a:hover {
+            color: #7e22ce;
+        }
+    </style>
 </head>
 <body class="bg-gradient-to-r from-purple-500 to-pink-500 min-h-screen">
     <div class="container mx-auto px-4">
@@ -44,6 +67,15 @@
                 <p class="text-gray-600">Transform your life through powerful habit formation, one month at a time</p>
             </div>
         </div>
+    </div>
+
+    <div class="feedback-box">
+        <p class="text-gray-600">
+            Always curious to get feedback while working on this page. Let me know what you like/dislike by 
+            <a href="mailto:75theorie-haube@icloud.com" class="hover:text-purple-800">
+                submitting your feedback
+            </a>
+        </p>
     </div>
 
     <script>
