@@ -9,8 +9,13 @@
 </head>
 <body class="bg-gradient-to-r from-purple-500 to-pink-500 min-h-screen">
     <div class="container mx-auto px-4">
-        <nav class="flex justify-end py-4">
-            <button onclick="logout()" class="bg-white text-purple-600 px-6 py-2 rounded-full hover:bg-purple-100 transition-colors">
+        <nav class="flex justify-end items-center gap-4 py-4">
+            <button onclick="window.location.href='pages/account.html'" 
+                    class="bg-white text-purple-600 px-6 py-2 rounded-full hover:bg-purple-100 transition-colors">
+                Account
+            </button>
+            <button onclick="logout()" 
+                    class="bg-white text-purple-600 px-6 py-2 rounded-full hover:bg-purple-100 transition-colors">
                 Logout
             </button>
         </nav>
