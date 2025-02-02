@@ -9,7 +9,7 @@
     <style>
         .feedback-box {
             position: fixed;
-            bottom: 24px;
+            bottom: 12px;
             right: 24px;
             max-width: 300px;
             background: white;
@@ -20,6 +20,13 @@
             line-height: 1.4;
             z-index: 50;
             border-left: 4px solid #9333ea;
+            
+            /* Make feedback box responsive on mobile */
+            @media (max-width: 640px) {
+                right: 12px;
+                left: 12px;
+                max-width: none;
+            }
         }
         .feedback-box a {
             color: #9333ea;
@@ -30,7 +37,7 @@
         }
     </style>
 </head>
-<body class="bg-gradient-to-r from-purple-500 to-pink-500 min-h-screen">
+<body class="bg-gradient-to-r from-purple-500 to-pink-500 min-h-screen pb-24">
     <div class="container mx-auto px-4">
         <nav class="flex justify-end items-center gap-4 py-4">
             <button onclick="window.location.href='pages/account.html'" 
