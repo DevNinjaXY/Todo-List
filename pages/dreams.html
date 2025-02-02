@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Manager - Personal Revolution Planner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="bg-gradient-to-r from-purple-500 to-pink-500 min-h-screen">
+    <div class="container mx-auto px-4">
+        <nav class="flex justify-between items-center py-4">
+            <a href="../index.html" class="text-white hover:text-purple-200">← Back to Home</a>
+            <button onclick="logout()" class="bg-white text-purple-600 px-6 py-2 rounded-full hover:bg-purple-100">
+                Logout
+            </button>
+        </nav>
+
+        <div class="bg-white rounded-lg p-6 shadow-lg mb-8">
+            <h1 class="text-3xl font-bold text-purple-600 mb-6">Re-awaken Your Dreams</h1>
+            
+            <div class="dream-input-section mb-8">
+                <div class="flex gap-4">
+                    <input type="text" id="dreamInput" placeholder="Enter your dream"
+                           class="flex-1 p-2 border border-purple-300 rounded focus:outline-none focus:border-purple-500">
+                    <button onclick="dreamManager.addDream()" 
+                            class="bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700">
+                        Add Dream
+                    </button>
+                </div>
+            </div>
+
+            <div class="dreams-container">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="dream-column bg-purple-50 p-4 rounded">
+                        <h2 class="text-xl font-bold text-purple-600 mb-4">Dreaming</h2>
+                        <div id="dreamingList" class="space-y-4"></div>
+                    </div>
+                    <div class="dream-column bg-purple-50 p-4 rounded">
+                        <h2 class="text-xl font-bold text-purple-600 mb-4">Planning</h2>
+                        <div id="planningList" class="space-y-4"></div>
+                    </div>
+                    <div class="dream-column bg-purple-50 p-4 rounded">
+                        <h2 class="text-xl font-bold text-purple-600 mb-4">Achieved</h2>
+                        <div id="achievedList" class="space-y-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/dream-manager.js"></script>
+</body>
+</html> 

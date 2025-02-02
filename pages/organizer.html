@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizer - Personal Revolution Planner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/organizer-styles.css">
+</head>
+<body class="bg-gradient-to-r from-purple-500 to-pink-500 min-h-screen">
+    <div class="container mx-auto px-4">
+        <nav class="flex justify-between items-center py-4">
+            <a href="../index.html" class="text-white hover:text-purple-200">← Back to Home</a>
+            <button onclick="logout()" class="bg-white text-purple-600 px-6 py-2 rounded-full hover:bg-purple-100">
+                Logout
+            </button>
+        </nav>
+
+        <div class="bg-white rounded-lg p-6 shadow-lg mb-8">
+            <h1 class="text-3xl font-bold text-purple-600 mb-6">Organize Your World</h1>
+            
+            <div class="task-input-section mb-8">
+                <div class="flex gap-4">
+                    <input type="text" id="taskInput" placeholder="Enter a new task"
+                           class="flex-1 p-2 border border-purple-300 rounded focus:outline-none focus:border-purple-500">
+                    <button onclick="organizerManager.addTask()" 
+                            class="bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700">
+                        Add Task
+                    </button>
+                </div>
+            </div>
+
+            <div class="tasks-container">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="task-column bg-purple-50 p-4 rounded">
+                        <h2 class="text-xl font-bold text-purple-600 mb-4">To Do</h2>
+                        <div id="todoList" class="space-y-4"></div>
+                    </div>
+                    <div class="task-column bg-purple-50 p-4 rounded">
+                        <h2 class="text-xl font-bold text-purple-600 mb-4">In Progress</h2>
+                        <div id="inProgressList" class="space-y-4"></div>
+                    </div>
+                    <div class="task-column bg-purple-50 p-4 rounded">
+                        <h2 class="text-xl font-bold text-purple-600 mb-4">Completed</h2>
+                        <div id="completedList" class="space-y-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/organizer-manager.js"></script>
+</body>
+</html> 

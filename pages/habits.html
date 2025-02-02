@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit Manager - Personal Revolution Planner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="bg-gradient-to-r from-purple-500 to-pink-500 min-h-screen">
+    <div class="container mx-auto px-4">
+        <nav class="flex justify-between items-center py-4">
+            <a href="../index.html" class="text-white hover:text-purple-200">← Back to Home</a>
+            <button onclick="logout()" class="bg-white text-purple-600 px-6 py-2 rounded-full hover:bg-purple-100">
+                Logout
+            </button>
+        </nav>
+
+        <div class="bg-white rounded-lg p-6 shadow-lg mb-8">
+            <h1 class="text-3xl font-bold text-purple-600 mb-6">Become Your Best Self</h1>
+            
+            <div id="habitSetup" class="mb-8">
+                <h2 class="text-xl font-bold text-purple-600 mb-4">Set Your Daily Habits</h2>
+                <p class="text-gray-600 mb-4">Choose up to 3 habits to track for the next 30 days</p>
+                
+                <div class="space-y-4">
+                    <div class="habit-input flex gap-4">
+                        <input type="text" id="habitInput" placeholder="Enter a new habit"
+                               class="flex-1 p-2 border border-purple-300 rounded focus:outline-none focus:border-purple-500">
+                        <button onclick="habitManager.addHabit()" 
+                                class="bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700">
+                            Add Habit
+                        </button>
+                    </div>
+                    <div id="activeHabits" class="space-y-2"></div>
+                </div>
+            </div>
+
+            <div id="habitTracking" class="hidden">
+                <h2 class="text-xl font-bold text-purple-600 mb-4">Daily Habit Tracking</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr>
+                                <th class="text-left p-2">Habit</th>
+                                <th class="text-center p-2" id="dateHeader"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="habitTrackingBody"></tbody>
+                    </table>
+                </div>
+
+                <div class="mt-6">
+                    <h3 class="text-lg font-bold text-purple-600 mb-2">Progress Overview</h3>
+                    <div id="progressCharts" class="space-y-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/habit-manager.js"></script>
+</body>
+</html> 
